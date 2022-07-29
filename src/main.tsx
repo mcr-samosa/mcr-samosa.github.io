@@ -13,6 +13,14 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/" element={<App />} />
         <Route path="container/:containerId" element={<Container />} />
         <Route path="box" element={<Box />} />
+        <Route
+          path="*"
+          element={
+            <main>
+              <div>What are you doing!?</div>
+            </main>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

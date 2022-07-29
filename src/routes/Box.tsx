@@ -1,6 +1,6 @@
 const Box = () => {
   return (
-    <main style={{ padding: "1rem 0" }}>
+    <main>
       <h2>Box</h2>
     </main>
   );
