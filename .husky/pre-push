@@ -1,4 +1,4 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-npm run typecheck && npm run audit:high
+npm run typecheck && npm audit --audit-level=high
