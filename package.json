@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "@kontent-ai/delivery-sdk": "^12.0.2",
+    "qrcode": "^1.5.1",
     "react": "^18.2.0",
     "react-bulma-components": "^4.1.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
+    "@types/qrcode": "^1.4.2",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
