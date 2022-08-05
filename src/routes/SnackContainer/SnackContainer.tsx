@@ -3,13 +3,20 @@ import { getContainerContent } from "../../clients/kontent-client";
 import { ContainerContent } from "../../models/container-content";
 import { Link, useParams } from "react-router-dom";
 import "./SnackContainer.css";
-import { Button, Columns, Container, Heading } from "react-bulma-components";
+import {
+  Button,
+  Columns,
+  Container,
+  Content,
+  Heading,
+} from "react-bulma-components";
 import QRCode from "qrcode";
 
 const SnackContainer = () => {
   const { containerId } = useParams();
 
   const [code, setCode] = useState("");
+  const [codeVisible, setCodeVisible] = useState(false);
   const [content, setContent] = useState<ContainerContent | null>(null);
 
   // Demo usage
@@ -24,9 +31,28 @@ const SnackContainer = () => {
   return (
     <main>
       <Container>
-        <Link to="/">
-          <Button>Back to main menu</Button>
-        </Link>
+        <Columns className="is-flex">
+          <Columns.Column>
+            <Link to="/">
+              <Button>Back to main menu</Button>
+            </Link>
+          </Columns.Column>
+          <Columns.Column>
+            <Button
+              className="is-hidden-mobile is-pulled-right"
+              onClick={() => {
+                setCodeVisible(!codeVisible);
+              }}
+            >
+              Show QR code
+            </Button>
+            <div>
+              {codeVisible && code && (
+                <img src={code} alt="QR code" className="is-pulled-right" />
+              )}
+            </div>
+          </Columns.Column>
+        </Columns>
         <Heading className="snack-heading is-vcentered">
           #{content?.containerId} - {content?.contentsText}
         </Heading>
@@ -42,7 +68,7 @@ const SnackContainer = () => {
           </Columns.Column>
           <Columns.Column className="is-vcentered">
             <div className="snack-description">
-              <div
+              <Content
                 className={`${content?.productDescription ? "pb-4" : ""}`}
                 dangerouslySetInnerHTML={{
                   __html: content?.productDescription ?? "",
@@ -51,7 +77,7 @@ const SnackContainer = () => {
               <p>
                 For more information such as the full product description,
                 allergies and dietry requirements see the supermarket listing
-                here:
+                here: &nbsp;
                 <a href={content?.supermarketUrl}>
                   {content?.supermarketUrl ?? "loading..."}
                 </a>
@@ -62,12 +88,12 @@ const SnackContainer = () => {
         <Columns>
           <Columns.Column>
             <div className="formatted-column has-background-primary	">
-              <b>Category:</b> Cereal
+              <b>Category:</b> {content?.snackTypeName}
             </div>
           </Columns.Column>
           <Columns.Column>
             <div className="formatted-column has-background-primary">
-              <b>Location:</b> Kitchen counter top
+              <b>Location:</b> {content?.containerLocation}
             </div>
           </Columns.Column>
           <Columns.Column>
@@ -81,7 +107,6 @@ const SnackContainer = () => {
             </div>
           </Columns.Column>
         </Columns>
-        {code && <img src={code} alt="QR code" />}
       </Container>
     </main>
   );
