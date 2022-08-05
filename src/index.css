@@ -1,3 +1,13 @@
-ul {
-  list-style: circle !important;
+body {
+  min-height: 100vh;
+  background-color: #d9cfc2;
+  font-family: 'Rubik', sans-serif;
+}
+
+.title {
+  font-family: 'Carter One', cursive;
+}
+
+.container {
+  background-color: #ffffff;
 }
