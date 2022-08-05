@@ -26,9 +26,6 @@ const SnackContainer = () => {
         <Heading className="snackHeading">
           #{content?.containerId} - {content?.fullProductName}
         </Heading>
-        <a href={content?.supermarketUrl ?? ""}>
-          <Button>Supermarket Link</Button>
-        </a>
         <Columns>
           <Columns.Column size={4}>
             {content?.imageUrl && (
@@ -46,6 +43,15 @@ const SnackContainer = () => {
               }}
               className="snack_description"
             />
+            <p>
+              {" "}
+              For more information such as the full product description,
+              allergies and dietry requirements see the supermarket listing
+              here:{" "}
+              <a href={content?.supermarketUrl}>
+                {content?.supermarketUrl ?? "loading..."}
+              </a>
+            </p>
           </Columns.Column>
         </Columns>
         <Columns>
@@ -63,7 +69,7 @@ const SnackContainer = () => {
             <div className="formatted-column has-background-warning">
               <b>Out of stock? </b>
               <a
-                href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.fullProductName} is out of stock`}
+                href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.fullProductName} is out of stock :(`}
               >
                 Contact us
               </a>
