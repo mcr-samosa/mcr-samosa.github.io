@@ -3,7 +3,8 @@ export type ContainerContent = {
   codename: string;
   containerLocation: string;
   contentsText: string;
-  snackType: string;
+  snackTypeName: string;
+  snackTypeCodename: string;
   imageUrl: string | null;
   productDescription: string;
   supermarketUrl: string;

@@ -2,6 +2,7 @@ import {
   createDeliveryClient,
   Elements,
   IContentItem,
+  ITaxonomyGroup,
 } from "@kontent-ai/delivery-sdk";
 import { ContainerListItem } from "../models/container-list-item";
 import { ContainerContent } from "../models/container-content";
@@ -27,9 +28,31 @@ const deliveryClient = createDeliveryClient({
   projectId: "c01af303-5219-00c8-cc36-485448ab0fa5",
 });
 
-export const SNACK_TYPES = {};
-
+let cachedTaxonomies: ITaxonomyGroup[];
 let cachedContent: IContentItem[];
+
+const fetchAllTaxonomies = async (): Promise<ITaxonomyGroup[]> => {
+  if (!cachedTaxonomies) {
+    const response = await deliveryClient.taxonomies().toPromise();
+    cachedTaxonomies = response.data.items;
+  }
+  return cachedTaxonomies;
+};
+
+export const getSnackTypes = async () => {
+  const items = await fetchAllTaxonomies();
+
+  const snackTypeGroup = items.find(
+    (item) => item.system.codename == "snack_type"
+  );
+
+  return (
+    snackTypeGroup?.terms.map((term) => ({
+      name: term.name,
+      codename: term.codename,
+    })) ?? []
+  );
+};
 
 const fetchAllContent = async (): Promise<IContentItem[]> => {
   if (!cachedContent) {
@@ -93,7 +116,8 @@ export const getContainerContent = async (
     codename: containerItem.system.codename,
     containerLocation: containerItem.elements.container_location.value,
     contentsText: containerItem.elements.container_contents.value,
-    snackType: containerItem.elements.snack_type.value[0].codename,
+    snackTypeName: containerItem.elements.snack_type?.value[0]?.name,
+    snackTypeCodename: containerItem.elements.snack_type?.value[0]?.codename,
     imageUrl: containerItem.elements.image_url?.value,
     productDescription: containerItem.elements.production_description.value,
     supermarketUrl: containerItem.elements.supermarket_url.value,
