@@ -4,10 +4,12 @@ import { ContainerContent } from "../../models/container-content";
 import { Link, useParams } from "react-router-dom";
 import "./SnackContainer.css";
 import { Button, Columns, Container, Heading } from "react-bulma-components";
+import QRCode from "qrcode";
 
 const SnackContainer = () => {
   const { containerId } = useParams();
 
+  const [code, setCode] = useState("");
   const [content, setContent] = useState<ContainerContent | null>(null);
 
   // Demo usage
@@ -15,6 +17,8 @@ const SnackContainer = () => {
     getContainerContent(containerId ?? "").then((content) =>
       setContent(content)
     );
+
+    QRCode.toDataURL(window.location.href).then(setCode);
   }, [containerId]);
 
   return (
@@ -24,14 +28,14 @@ const SnackContainer = () => {
           <Button>Back to main menu</Button>
         </Link>
         <Heading className="snackHeading">
-          #{content?.containerId} - {content?.fullProductName}
+          #{content?.containerId} - {content?.contentsText}
         </Heading>
         <Columns>
           <Columns.Column size={4}>
             {content?.imageUrl && (
               <img
                 src={content?.imageUrl}
-                alt={`Image of ${content?.fullProductName}`}
+                alt={`Image of ${content?.contentsText}`}
                 className="snackImage"
               />
             )}
@@ -69,13 +73,14 @@ const SnackContainer = () => {
             <div className="formatted-column has-background-warning">
               <b>Out of stock? </b>
               <a
-                href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.fullProductName} is out of stock :(`}
+                href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock :(`}
               >
                 Contact us
               </a>
             </div>
           </Columns.Column>
         </Columns>
+        {code && <img src={code} />}
       </Container>
     </main>
   );
