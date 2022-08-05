@@ -7,10 +7,6 @@ import { ContainerListItem } from "../models/container-list-item";
 import { ContainerContent } from "../models/container-content";
 import { LandingPageContent } from "../models/landing-page-content";
 
-const deliveryClient = createDeliveryClient({
-  projectId: "c01af303-5219-00c8-cc36-485448ab0fa5",
-});
-
 type LandingPage = IContentItem<{
   title: Elements.TextElement;
   subtitle: Elements.TextElement;
@@ -19,12 +15,19 @@ type LandingPage = IContentItem<{
 }>;
 
 type Container = IContentItem<{
+  container_location: Elements.TextElement;
   container_contents: Elements.TextElement;
-  full_product_name: Elements.TextElement;
-  supermarket_url: Elements.TextElement;
+  snack_type: Elements.TaxonomyElement;
   image_url: Elements.TextElement;
   production_description: Elements.RichTextElement;
+  supermarket_url: Elements.TextElement;
 }>;
+
+const deliveryClient = createDeliveryClient({
+  projectId: "c01af303-5219-00c8-cc36-485448ab0fa5",
+});
+
+export const SNACK_TYPES = {};
 
 let cachedContent: IContentItem[];
 
@@ -88,10 +91,11 @@ export const getContainerContent = async (
   return {
     containerId: parseInt(containerId),
     codename: containerItem.system.codename,
+    containerLocation: containerItem.elements.container_location.value,
     contentsText: containerItem.elements.container_contents.value,
-    fullProductName: containerItem.elements.full_product_name.value,
-    supermarketUrl: containerItem.elements.supermarket_url.value,
+    snackType: containerItem.elements.snack_type.value[0].codename,
     imageUrl: containerItem.elements.image_url?.value,
     productDescription: containerItem.elements.production_description.value,
+    supermarketUrl: containerItem.elements.supermarket_url.value,
   };
 };
