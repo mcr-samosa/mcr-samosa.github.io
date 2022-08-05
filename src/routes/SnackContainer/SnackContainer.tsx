@@ -27,7 +27,7 @@ const SnackContainer = () => {
         <Link to="/">
           <Button>Back to main menu</Button>
         </Link>
-        <Heading className="snackHeading">
+        <Heading className="snack-heading">
           #{content?.containerId} - {content?.contentsText}
         </Heading>
         <Columns>
@@ -36,26 +36,27 @@ const SnackContainer = () => {
               <img
                 src={content?.imageUrl}
                 alt={`Image of ${content?.contentsText}`}
-                className="snackImage"
+                className="snack-image"
               />
             )}
           </Columns.Column>
           <Columns.Column>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: content?.productDescription ?? "",
-              }}
-              className="snack_description"
-            />
-            <p>
-              {" "}
-              For more information such as the full product description,
-              allergies and dietry requirements see the supermarket listing
-              here:{" "}
-              <a href={content?.supermarketUrl}>
-                {content?.supermarketUrl ?? "loading..."}
-              </a>
-            </p>
+            <div>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: content?.productDescription ?? "",
+                }}
+              />
+              <p>
+                {" "}
+                For more information such as the full product description,
+                allergies and dietry requirements see the supermarket listing
+                here:{" "}
+                <a href={content?.supermarketUrl}>
+                  {content?.supermarketUrl ?? "loading..."}
+                </a>
+              </p>
+            </div>
           </Columns.Column>
         </Columns>
         <Columns>
