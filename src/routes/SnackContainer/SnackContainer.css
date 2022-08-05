@@ -1,0 +1,19 @@
+.container {
+    padding: 1em;
+}
+
+.snack-image {
+    size: 0.5em;
+}
+
+.snack-heading {
+    padding: 0.5em 0.5em 0 0.5em;
+}
+
+.snack-description {
+    vertical-align: middle;
+}
+
+div .formatted-column {
+    padding: 1em;
+}
