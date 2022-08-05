@@ -27,10 +27,10 @@ const SnackContainer = () => {
         <Link to="/">
           <Button>Back to main menu</Button>
         </Link>
-        <Heading className="snack-heading">
+        <Heading className="snack-heading is-vcentered">
           #{content?.containerId} - {content?.contentsText}
         </Heading>
-        <Columns>
+        <Columns className="is-flex">
           <Columns.Column size={4}>
             {content?.imageUrl && (
               <img
@@ -40,18 +40,18 @@ const SnackContainer = () => {
               />
             )}
           </Columns.Column>
-          <Columns.Column>
-            <div>
-              <p
+          <Columns.Column className="is-vcentered">
+            <div className="snack-description">
+              <div
+                className={`${content?.productDescription ? "pb-4" : ""}`}
                 dangerouslySetInnerHTML={{
                   __html: content?.productDescription ?? "",
                 }}
               />
               <p>
-                {" "}
                 For more information such as the full product description,
                 allergies and dietry requirements see the supermarket listing
-                here:{" "}
+                here:
                 <a href={content?.supermarketUrl}>
                   {content?.supermarketUrl ?? "loading..."}
                 </a>
@@ -81,7 +81,7 @@ const SnackContainer = () => {
             </div>
           </Columns.Column>
         </Columns>
-        {code && <img src={code} />}
+        {code && <img src={code} alt="QR code" />}
       </Container>
     </main>
   );
