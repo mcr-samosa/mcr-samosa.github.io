@@ -6,6 +6,7 @@ import {
   getLandingPageContent,
 } from "../../clients/kontent-client";
 import { ContainerListItem } from "../../models/container-list-item";
+import { Container, Heading } from "react-bulma-components";
 
 const Home = () => {
   const [content, setContent] = useState<LandingPageContent | null>(null);
@@ -19,21 +20,23 @@ const Home = () => {
 
   return (
     <main>
-      <h1>{content?.titleText ?? "Loading..."}</h1>
-      <h2>{content?.subtitleText}</h2>
-      <div>{content?.bodyContent}</div>
-      <nav>
-        {containerList.map((containerListItem) => (
-          <div key={containerListItem.containerId}>
-            <Link to={`/container/${containerListItem.containerId}`}>
-              Container {containerListItem.containerId} &mdash;{" "}
-              {containerListItem.contentsText}
-            </Link>
-            <br />
-          </div>
-        ))}
-      </nav>
-      <div>{content?.footerContent}</div>
+      <Container>
+        <Heading>{content?.titleText ?? "Loading..."}</Heading>
+        <h2>{content?.subtitleText}</h2>
+        <div>{content?.bodyContent}</div>
+        <nav>
+          {containerList.map((containerListItem) => (
+            <div key={containerListItem.containerId}>
+              <Link to={`/container/${containerListItem.containerId}`}>
+                Container {containerListItem.containerId} &mdash;{" "}
+                {containerListItem.contentsText}
+              </Link>
+              <br />
+            </div>
+          ))}
+        </nav>
+        <div>{content?.footerContent}</div>
+      </Container>
     </main>
   );
 };

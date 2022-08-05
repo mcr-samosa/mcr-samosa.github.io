@@ -1,0 +1,18 @@
+.snackImage {
+    padding: 2em;
+    size: 0.5em;
+}
+
+.snackHeading {
+    padding: 0.5em;
+}
+
+.snack_description {
+    padding: 2em;
+}
+
+div .formatted-column {
+    padding: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
