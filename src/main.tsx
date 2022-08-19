@@ -5,6 +5,7 @@ import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SnackContainer from "./routes/SnackContainer/SnackContainer";
 import Home from "./routes/Home/Home";
+import Footer from "./components/Footer";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -22,5 +23,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         />
       </Routes>
     </BrowserRouter>
+    <Footer />
   </React.StrictMode>
 );

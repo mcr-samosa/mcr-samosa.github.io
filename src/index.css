@@ -1,14 +1,43 @@
 body {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
   min-height: 100vh;
-  background-color: #d9cfc2;
-  font-family: 'Rubik', sans-serif;
+  background-color: #edceb0;
+  font-family: "Rubik", sans-serif;
+}
+
+#root {
+  flex-grow: 1;
+  min-height: 100%;
+  background-color: #ffffff;
+}
+
+.hero,
+footer {
+  background: #ff9630;
+  border-radius: 0.5rem;
+  text-align: center;
+  color: #ffffff;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+footer {
+  padding: 0.5rem 0;
+  -webkit-text-stroke-width: 0;
+  font-size: 1em;
 }
 
 .title {
-  font-family: 'Carter One', cursive;
+  color: inherit;
+  font-size: 5em;
+  font-family: "Carter One", cursive;
   font-weight: 400;
 }
 
-.container {
-  background-color: #ffffff;
+.container-list {
+  background: #e5e3e1;
+  border-radius: 0.5rem;
 }

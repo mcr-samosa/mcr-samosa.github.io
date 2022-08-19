@@ -6,7 +6,7 @@ import {
   getLandingPageContent,
 } from "../../clients/kontent-client";
 import { ContainerListItem } from "../../models/container-list-item";
-import { Container, Heading } from "react-bulma-components";
+import { Card, Container, Content, Heading } from "react-bulma-components";
 
 const Home = () => {
   const [content, setContent] = useState<LandingPageContent | null>(null);
@@ -20,22 +20,36 @@ const Home = () => {
 
   return (
     <main>
+      <section className="hero pt-3 pb-5 mb-4">
+        <Heading className="mb-0">{content?.titleText ?? "Loading..."}</Heading>
+        <p>{content?.subtitleText}</p>
+      </section>
       <Container>
-        <Heading>{content?.titleText ?? "Loading..."}</Heading>
-        <h2>{content?.subtitleText}</h2>
-        <div>{content?.bodyContent}</div>
-        <nav>
+        <Content
+          dangerouslySetInnerHTML={{
+            __html: content?.bodyContent ?? "",
+          }}
+        />
+        <nav className="container-list p-4 mb-5">
           {containerList.map((containerListItem) => (
-            <div key={containerListItem.containerId}>
-              <Link to={`/container/${containerListItem.containerId}`}>
-                Container {containerListItem.containerId} &mdash;{" "}
-                {containerListItem.contentsText}
-              </Link>
-              <br />
-            </div>
+            <Link
+              key={containerListItem.containerId}
+              to={`/container/${containerListItem.containerId}`}
+            >
+              <Card className="mb-2">
+                <Card.Content>
+                  #{containerListItem.containerId} &mdash;{" "}
+                  {containerListItem.contentsText}
+                </Card.Content>
+              </Card>
+            </Link>
           ))}
         </nav>
-        <div>{content?.footerContent}</div>
+        <Content
+          dangerouslySetInnerHTML={{
+            __html: content?.footerContent ?? "",
+          }}
+        />
       </Container>
     </main>
   );

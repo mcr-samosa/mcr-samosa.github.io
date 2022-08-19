@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import "./SnackContainer.css";
 import {
   Button,
+  Card,
   Columns,
   Container,
   Content,
@@ -30,32 +31,51 @@ const SnackContainer = () => {
 
   return (
     <main>
-      <Container>
-        <Columns className="is-flex">
-          <Columns.Column>
-            <Link to="/">
-              <Button>Back to main menu</Button>
-            </Link>
-          </Columns.Column>
-          <Columns.Column>
-            <Button
-              className="is-hidden-mobile is-pulled-right"
+      <Columns className="is-flex">
+        <Columns.Column>
+          <Link to="/">
+            <Button>Back to main menu</Button>
+          </Link>
+        </Columns.Column>
+        <Columns.Column className="is-flex is-justify-content-center is-align-items-center">
+          <Heading subtitle>Snack Container #{content?.containerId}</Heading>
+        </Columns.Column>
+        <Columns.Column>
+          <a
+            href={content?.kontentEditUrl ?? "#"}
+            rel="noreferrer"
+            className="ml-3 button is-hidden-mobile is-pulled-right"
+          >
+            Edit Snack ↗
+          </a>
+          <Button
+            className="is-hidden-mobile is-pulled-right"
+            onClick={() => {
+              setCodeVisible(!codeVisible);
+            }}
+          >
+            Show QR code
+          </Button>
+          {codeVisible && code && (
+            <Card
+              className="floating-qr"
               onClick={() => {
-                setCodeVisible(!codeVisible);
+                setCodeVisible(false);
               }}
             >
-              Show QR code
-            </Button>
-            <div>
-              {codeVisible && code && (
-                <img src={code} alt="QR code" className="is-pulled-right" />
-              )}
-            </div>
-          </Columns.Column>
-        </Columns>
-        <Heading className="snack-heading is-vcentered">
-          #{content?.containerId} - {content?.contentsText}
-        </Heading>
+              <Card.Content>
+                <img src={code} alt="QR code" />
+              </Card.Content>
+            </Card>
+          )}
+        </Columns.Column>
+      </Columns>
+      <hr className="mt-0" />
+      <Heading renderAs="h2" className="snack-heading is-vcentered">
+        {content?.contentsText}
+      </Heading>
+      <hr className="mt-0 mb-4" />
+      <Container>
         <Columns className="is-flex">
           <Columns.Column size={4}>
             {content?.imageUrl && (
@@ -87,29 +107,29 @@ const SnackContainer = () => {
             </div>
           </Columns.Column>
         </Columns>
-        <Columns>
-          <Columns.Column>
-            <div className="formatted-column has-background-primary	">
-              <b>Category:</b> {content?.snackTypeName}
-            </div>
-          </Columns.Column>
-          <Columns.Column>
-            <div className="formatted-column has-background-primary">
-              <b>Location:</b> {content?.containerLocation}
-            </div>
-          </Columns.Column>
-          <Columns.Column>
-            <div className="formatted-column has-background-warning">
-              <b>Out of stock? </b>
-              <a
-                href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock :(`}
-              >
-                Contact us
-              </a>
-            </div>
-          </Columns.Column>
-        </Columns>
       </Container>
+      <Columns className="mb-2">
+        <Columns.Column>
+          <div className="formatted-column has-background-primary	">
+            <b>Category:</b> {content?.snackTypeName}
+          </div>
+        </Columns.Column>
+        <Columns.Column>
+          <div className="formatted-column has-background-primary">
+            <b>Location:</b> {content?.containerLocation}
+          </div>
+        </Columns.Column>
+        <Columns.Column>
+          <div className="formatted-column has-background-warning">
+            <b>Out of stock? </b>
+            <a
+              href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock :(`}
+            >
+              Contact us
+            </a>
+          </div>
+        </Columns.Column>
+      </Columns>
     </main>
   );
 };
