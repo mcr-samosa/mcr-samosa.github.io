@@ -6,15 +6,20 @@ import {
   getLandingPageContent,
 } from "../../clients/kontent-client";
 import { ContainerListItem } from "../../models/container-list-item";
-import { Card, Container, Content, Image } from "react-bulma-components";
+import { Card, Container, Content } from "react-bulma-components";
+import "./Home.css";
+import { logos } from "../../utils/logos";
 
-import goodSamosaLogo from "../../assets/samosa.png";
-import badSamosaLogo from "../../assets/cannibal-samosa.png";
+const randomLogoIdx = (previous?: number): number => {
+  const newIdx = Math.floor(Math.random() * logos.length);
+
+  return newIdx === previous ? randomLogoIdx(previous) : newIdx;
+};
 
 const Home = () => {
   const [content, setContent] = useState<LandingPageContent | null>(null);
   const [containerList, setContainerList] = useState<ContainerListItem[]>([]);
-  const [samosaLogo, setSamosaLogo] = useState(goodSamosaLogo);
+  const [samosaLogoIdx, setSamosaLogoIdx] = useState(randomLogoIdx());
 
   // Demo usage
   useEffect(() => {
@@ -25,11 +30,10 @@ const Home = () => {
   return (
     <main>
       <section className="hero pt-3 pb-5 mb-4 is-flex is-align-items-center">
-        <Image
-          src={samosaLogo}
-          size={128}
-          onMouseEnter={() => setSamosaLogo(badSamosaLogo)}
-          onMouseLeave={() => setSamosaLogo(goodSamosaLogo)}
+        <img
+          src={logos[samosaLogoIdx]}
+          onClick={() => setSamosaLogoIdx(randomLogoIdx)}
+          className="logo"
         />
         <p>{content?.subtitleText}</p>
       </section>
