@@ -7,5 +7,6 @@ export type ContainerContent = {
   snackTypeCodename: string;
   imageUrl: string | null;
   productDescription: string;
-  supermarketUrl: string;
+  supermarketUrl: string | null;
+  kontentEditUrl: string;
 };

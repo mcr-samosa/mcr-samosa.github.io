@@ -74,14 +74,16 @@ const SnackContainer = () => {
                   __html: content?.productDescription ?? "",
                 }}
               />
-              <p>
-                For more information such as the full product description,
-                allergies and dietry requirements see the supermarket listing
-                here: &nbsp;
-                <a href={content?.supermarketUrl}>
-                  {content?.supermarketUrl ?? "loading..."}
-                </a>
-              </p>
+              {content?.supermarketUrl && (
+                <p>
+                  For more information such as the full product description,
+                  allergies and dietry requirements see the supermarket listing
+                  here: &nbsp;
+                  <a href={content?.supermarketUrl}>
+                    {content?.supermarketUrl ?? "loading..."}
+                  </a>
+                </p>
+              )}
             </div>
           </Columns.Column>
         </Columns>

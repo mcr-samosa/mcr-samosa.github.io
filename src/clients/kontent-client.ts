@@ -8,6 +8,8 @@ import { ContainerListItem } from "../models/container-list-item";
 import { ContainerContent } from "../models/container-content";
 import { LandingPageContent } from "../models/landing-page-content";
 
+const PROJECT_ID = "c01af303-5219-00c8-cc36-485448ab0fa5";
+
 type LandingPage = IContentItem<{
   title: Elements.TextElement;
   subtitle: Elements.TextElement;
@@ -25,7 +27,7 @@ type Container = IContentItem<{
 }>;
 
 const deliveryClient = createDeliveryClient({
-  projectId: "c01af303-5219-00c8-cc36-485448ab0fa5",
+  projectId: PROJECT_ID,
 });
 
 let cachedTaxonomies: ITaxonomyGroup[];
@@ -115,6 +117,8 @@ export const getContainerContent = async (
     return null;
   }
 
+  const kontentEditUrl = `https://app.kontent.ai/${PROJECT_ID}/content-inventory/00000000-0000-0000-0000-000000000000/content/${containerItem.system.id}`;
+
   return {
     containerId: parseInt(containerId),
     codename: containerItem.system.codename,
@@ -124,6 +128,7 @@ export const getContainerContent = async (
     snackTypeCodename: containerItem.elements.snack_type?.value[0]?.codename,
     imageUrl: containerItem.elements.image_url?.value,
     productDescription: containerItem.elements.production_description.value,
-    supermarketUrl: containerItem.elements.supermarket_url.value,
+    supermarketUrl: containerItem.elements.supermarket_url?.value,
+    kontentEditUrl,
   };
 };
