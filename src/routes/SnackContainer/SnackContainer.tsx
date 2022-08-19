@@ -40,16 +40,16 @@ const SnackContainer = () => {
         <Columns.Column className="is-flex is-justify-content-center is-align-items-center">
           <Heading subtitle>Snack Container #{content?.containerId}</Heading>
         </Columns.Column>
-        <Columns.Column>
+        <Columns.Column className="is-hidden-mobile">
           <a
             href={content?.kontentEditUrl ?? "#"}
             rel="noreferrer"
-            className="ml-3 button is-hidden-mobile is-pulled-right"
+            className="ml-3 button is-pulled-right"
           >
             Edit Snack ↗
           </a>
           <Button
-            className="is-hidden-mobile is-pulled-right"
+            className="is-pulled-right"
             onClick={() => {
               setCodeVisible(!codeVisible);
             }}
@@ -76,7 +76,7 @@ const SnackContainer = () => {
       </Heading>
       <hr className="mt-0 mb-4" />
       <Container>
-        <Columns className="is-flex">
+        <Columns>
           <Columns.Column size={4}>
             {content?.imageUrl && (
               <img
