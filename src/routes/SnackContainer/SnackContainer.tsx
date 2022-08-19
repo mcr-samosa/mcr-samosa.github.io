@@ -123,7 +123,7 @@ const SnackContainer = () => {
           <div className="formatted-column has-background-warning">
             <b>Out of stock? </b>
             <a
-              href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock :(`}
+              href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock 😭`}
             >
               Contact us
             </a>

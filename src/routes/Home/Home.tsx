@@ -6,11 +6,15 @@ import {
   getLandingPageContent,
 } from "../../clients/kontent-client";
 import { ContainerListItem } from "../../models/container-list-item";
-import { Card, Container, Content, Heading } from "react-bulma-components";
+import { Card, Container, Content, Image } from "react-bulma-components";
+
+import goodSamosaLogo from "../../assets/samosa.png";
+import badSamosaLogo from "../../assets/cannibal-samosa.png";
 
 const Home = () => {
   const [content, setContent] = useState<LandingPageContent | null>(null);
   const [containerList, setContainerList] = useState<ContainerListItem[]>([]);
+  const [samosaLogo, setSamosaLogo] = useState(goodSamosaLogo);
 
   // Demo usage
   useEffect(() => {
@@ -20,8 +24,13 @@ const Home = () => {
 
   return (
     <main>
-      <section className="hero pt-3 pb-5 mb-4">
-        <Heading className="mb-0">{content?.titleText ?? "Loading..."}</Heading>
+      <section className="hero pt-3 pb-5 mb-4 is-flex is-align-items-center">
+        <Image
+          src={samosaLogo}
+          size={128}
+          onMouseEnter={() => setSamosaLogo(badSamosaLogo)}
+          onMouseLeave={() => setSamosaLogo(goodSamosaLogo)}
+        />
         <p>{content?.subtitleText}</p>
       </section>
       <Container>
