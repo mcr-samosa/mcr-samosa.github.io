@@ -89,11 +89,15 @@ export const getContainerList = async (): Promise<ContainerListItem[]> => {
     (item: IContentItem) => item.system.type == "snack_container"
   );
 
-  return containerItems.map((container) => ({
-    containerId: parseInt(container.system.codename.substring(10)),
-    codename: container.system.codename,
-    contentsText: container.elements.container_contents.value,
-  }));
+  return containerItems
+    .map((container) => ({
+      containerId: parseInt(container.system.codename.substring(10)),
+      codename: container.system.codename,
+      contentsText: container.elements.container_contents.value,
+    }))
+    .sort((containerA, containerB) =>
+      Math.sign(containerA.containerId - containerB.containerId)
+    );
 };
 
 export const getContainerContent = async (
