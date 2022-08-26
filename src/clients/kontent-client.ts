@@ -7,6 +7,7 @@ import {
 import { ContainerListItem } from "../models/container-list-item";
 import { ContainerContent } from "../models/container-content";
 import { LandingPageContent } from "../models/landing-page-content";
+import { WeeklyProductsContent } from "../models/weekly-products-content";
 
 const PROJECT_ID = "c01af303-5219-00c8-cc36-485448ab0fa5";
 
@@ -15,6 +16,11 @@ type LandingPage = IContentItem<{
   subtitle: Elements.TextElement;
   body: Elements.RichTextElement;
   footer: Elements.RichTextElement;
+}>;
+
+type WeeklyProducts = IContentItem<{
+  block_title: Elements.TextElement;
+  block_contents: Elements.RichTextElement;
 }>;
 
 type Container = IContentItem<{
@@ -81,6 +87,24 @@ export const getLandingPageContent =
       subtitleText: landingPageItem.elements.subtitle?.value,
       bodyContent: landingPageItem.elements.body?.value,
       footerContent: landingPageItem.elements.footer?.value,
+    };
+  };
+
+export const getWeeklyProductsContent =
+  async (): Promise<WeeklyProductsContent | null> => {
+    const items = (await fetchAllContent()) as WeeklyProducts[];
+
+    const weeklyProductsBlock: WeeklyProducts | undefined = items.find(
+      (item: IContentItem) => item.system.codename == "weekly_products_block"
+    );
+
+    if (!weeklyProductsBlock) {
+      return null;
+    }
+
+    return {
+      blockTitle: weeklyProductsBlock.elements.block_title.value,
+      blockContents: weeklyProductsBlock.elements.block_contents.value,
     };
   };
 
