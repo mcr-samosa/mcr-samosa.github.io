@@ -4,11 +4,13 @@ import { LandingPageContent } from "../../models/landing-page-content";
 import {
   getContainerList,
   getLandingPageContent,
+  getWeeklyProductsContent,
 } from "../../clients/kontent-client";
 import { ContainerListItem } from "../../models/container-list-item";
 import { Card, Container, Content } from "react-bulma-components";
 import "./Home.css";
 import { logos } from "../../utils/logos";
+import { WeeklyProductsContent } from "../../models/weekly-products-content";
 
 const randomLogoIdx = (previous?: number): number => {
   const newIdx = Math.floor(Math.random() * logos.length);
@@ -18,12 +20,14 @@ const randomLogoIdx = (previous?: number): number => {
 
 const Home = () => {
   const [content, setContent] = useState<LandingPageContent | null>(null);
+  const [weeklyProducts, setWeeklyProducts] =
+    useState<WeeklyProductsContent | null>(null);
   const [containerList, setContainerList] = useState<ContainerListItem[]>([]);
   const [samosaLogoIdx, setSamosaLogoIdx] = useState(randomLogoIdx());
 
-  // Demo usage
   useEffect(() => {
     getLandingPageContent().then((content) => setContent(content));
+    getWeeklyProductsContent().then((content) => setWeeklyProducts(content));
     getContainerList().then((containerList) => setContainerList(containerList));
   }, []);
 
@@ -31,6 +35,7 @@ const Home = () => {
     <main>
       <section className="hero pt-3 pb-5 mb-4 is-flex is-align-items-center">
         <img
+          alt="SAMOSA"
           src={logos[samosaLogoIdx]}
           onClick={() => setSamosaLogoIdx(randomLogoIdx)}
           className="logo"
@@ -58,6 +63,18 @@ const Home = () => {
             </Link>
           ))}
         </nav>
+        <hr />
+        <div id="weekly-products">
+          <Content>
+            <h2>{weeklyProducts?.blockTitle ?? ""}</h2>
+          </Content>
+          <Content
+            dangerouslySetInnerHTML={{
+              __html: weeklyProducts?.blockContents ?? "",
+            }}
+          />
+        </div>
+        <hr />
         <Content
           dangerouslySetInnerHTML={{
             __html: content?.footerContent ?? "",
