@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getContainerContent } from "../../clients/kontent-client";
 import { ContainerContent } from "../../models/container-content";
 import { Link, useParams } from "react-router-dom";
@@ -11,23 +11,57 @@ import {
   Content,
   Heading,
 } from "react-bulma-components";
-import QRCode from "qrcode";
+import QRCodeStyling from "qr-code-styling";
+
+import samosaLogo from "../../assets/samosa1.png";
+
+// Pride maybe?
+// gradient: {
+//   type: "linear",
+//   colorStops: [
+//     "red",
+//     "orange",
+//     "yellow",
+//     "green",
+//     // "lime",
+//     "blue",
+//     "purple",
+//   ].map((color, idx, arr) => ({
+//     color,
+//     offset: idx / (arr.length - 1),
+//   })),
+// },
+
+const qrCode = new QRCodeStyling({
+  width: 150,
+  height: 150,
+  image: samosaLogo,
+  dotsOptions: {
+    color: "#ff9630",
+    type: "classy",
+  },
+});
 
 const SnackContainer = () => {
   const { containerId } = useParams();
 
-  const [code, setCode] = useState("");
   const [codeVisible, setCodeVisible] = useState(false);
   const [content, setContent] = useState<ContainerContent | null>(null);
 
+  const qrCodeRef = useRef<HTMLDivElement>(null);
+
   // Demo usage
   useEffect(() => {
-    getContainerContent(containerId ?? "").then((content) =>
-      setContent(content)
-    );
+    getContainerContent(containerId ?? "").then(setContent);
 
-    QRCode.toDataURL(window.location.href).then(setCode);
+    qrCode.update({ data: window.location.href });
   }, [containerId]);
+
+  useEffect(() => {
+    if (codeVisible && qrCodeRef.current) {
+      qrCode.append(qrCodeRef.current ?? undefined);
+    }
+  }, [codeVisible, qrCodeRef]);
 
   return (
     <main>
@@ -56,16 +90,9 @@ const SnackContainer = () => {
           >
             Show QR code
           </Button>
-          {codeVisible && code && (
-            <Card
-              className="floating-qr"
-              onClick={() => {
-                setCodeVisible(false);
-              }}
-            >
-              <Card.Content>
-                <img src={code} alt="QR code" />
-              </Card.Content>
+          {codeVisible && (
+            <Card className="floating-qr" onClick={() => setCodeVisible(false)}>
+              <div className="is-flex" ref={qrCodeRef} />
             </Card>
           )}
         </Columns.Column>

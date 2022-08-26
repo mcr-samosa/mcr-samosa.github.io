@@ -1,4 +1,3 @@
-import goodSamosaLogo from "../assets/samosa.png";
 import badSamosaLogo from "../assets/cannibal-samosa.png";
 import saoirseSamosaLogo from "../assets/saoirse-samosa.png";
 import samosa1 from "../assets/samosa1.png";
@@ -11,7 +10,6 @@ import samosa7 from "../assets/samosa7.png";
 import samosa8 from "../assets/samosa8.png";
 
 export const logos = [
-  goodSamosaLogo,
   badSamosaLogo,
   saoirseSamosaLogo,
   samosa1,
