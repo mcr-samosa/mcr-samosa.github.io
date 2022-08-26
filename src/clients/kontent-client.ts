@@ -8,6 +8,7 @@ import { ContainerListItem } from "../models/container-list-item";
 import { ContainerContent } from "../models/container-content";
 import { LandingPageContent } from "../models/landing-page-content";
 import { WeeklyProductsContent } from "../models/weekly-products-content";
+import { SnackTypeListItem } from "../models/snack-type-list-item";
 
 const PROJECT_ID = "c01af303-5219-00c8-cc36-485448ab0fa5";
 
@@ -47,7 +48,7 @@ const fetchAllTaxonomies = async (): Promise<ITaxonomyGroup[]> => {
   return cachedTaxonomies;
 };
 
-export const getSnackTypes = async () => {
+export const getSnackTypes = async (): Promise<SnackTypeListItem[]> => {
   const items = await fetchAllTaxonomies();
 
   const snackTypeGroup = items.find(
@@ -120,6 +121,7 @@ export const getContainerList = async (): Promise<ContainerListItem[]> => {
       containerId: parseInt(container.system.codename.substring(10)),
       codename: container.system.codename,
       contentsText: container.elements.container_contents.value,
+      snackTypeName: container.elements.snack_type?.value[0]?.name,
     }))
     .sort((containerA, containerB) =>
       Math.sign(containerA.containerId - containerB.containerId)

@@ -4,6 +4,7 @@ import { LandingPageContent } from "../../models/landing-page-content";
 import {
   getContainerList,
   getLandingPageContent,
+  getSnackTypes,
   getWeeklyProductsContent,
 } from "../../clients/kontent-client";
 import { ContainerListItem } from "../../models/container-list-item";
@@ -11,6 +12,7 @@ import { Card, Container, Content } from "react-bulma-components";
 import "./Home.css";
 import { logos } from "../../utils/logos";
 import { WeeklyProductsContent } from "../../models/weekly-products-content";
+import { SnackTypeListItem } from "../../models/snack-type-list-item";
 
 const randomLogoIdx = (previous?: number): number => {
   const newIdx = Math.floor(Math.random() * logos.length);
@@ -23,12 +25,14 @@ const Home = () => {
   const [weeklyProducts, setWeeklyProducts] =
     useState<WeeklyProductsContent | null>(null);
   const [containerList, setContainerList] = useState<ContainerListItem[]>([]);
+  const [snackTypeList, setSnackTypeList] = useState<SnackTypeListItem[]>([]);
   const [samosaLogoIdx, setSamosaLogoIdx] = useState(randomLogoIdx());
 
   useEffect(() => {
     getLandingPageContent().then((content) => setContent(content));
     getWeeklyProductsContent().then((content) => setWeeklyProducts(content));
     getContainerList().then((containerList) => setContainerList(containerList));
+    getSnackTypes().then((snackTypesList) => setSnackTypeList(snackTypesList));
   }, []);
 
   return (
@@ -39,6 +43,7 @@ const Home = () => {
           src={logos[samosaLogoIdx]}
           onClick={() => setSamosaLogoIdx(randomLogoIdx)}
           className="logo"
+          alt="SAMOSA logo"
         />
         <p>{content?.subtitleText}</p>
       </section>
@@ -48,21 +53,35 @@ const Home = () => {
             __html: content?.bodyContent ?? "",
           }}
         />
-        <nav className="container-list p-4 mb-5">
-          {containerList.map((containerListItem) => (
-            <Link
-              key={containerListItem.containerId}
-              to={`/container/${containerListItem.containerId}`}
-            >
-              <Card className="mb-2">
-                <Card.Content>
-                  #{containerListItem.containerId} &mdash;{" "}
-                  {containerListItem.contentsText}
-                </Card.Content>
-              </Card>
-            </Link>
-          ))}
-        </nav>
+        {snackTypeList
+          .filter((snackType) => snackType.codename != "empty")
+          .map((snackType) => {
+            const matchingContainersList = containerList
+              .filter((item) => item.snackTypeName == snackType.name)
+              .map((containerListItem) => (
+                <Link
+                  key={containerListItem.containerId}
+                  to={`/container/${containerListItem.containerId}`}
+                >
+                  <Card className="mb-2">
+                    <Card.Content>
+                      #{containerListItem.containerId} &mdash;{" "}
+                      {containerListItem.contentsText}
+                    </Card.Content>
+                  </Card>
+                </Link>
+              ));
+            if (matchingContainersList.length > 0) {
+              return (
+                <div key={snackType.codename}>
+                  <h2>{snackType.name}</h2>
+                  <nav className="container-list p-4 mb-5">
+                    {matchingContainersList}
+                  </nav>
+                </div>
+              );
+            }
+          })}
         <hr />
         <div id="weekly-products">
           <Content>
