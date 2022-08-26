@@ -43,7 +43,6 @@ const Home = () => {
           src={logos[samosaLogoIdx]}
           onClick={() => setSamosaLogoIdx(randomLogoIdx)}
           className="logo"
-          alt="SAMOSA logo"
         />
         <p>{content?.subtitleText}</p>
       </section>
