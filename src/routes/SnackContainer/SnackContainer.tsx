@@ -125,7 +125,7 @@ const SnackContainer = () => {
             <a
               href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock 😭`}
             >
-              Contact us
+              Let us know
             </a>
           </div>
         </Columns.Column>
