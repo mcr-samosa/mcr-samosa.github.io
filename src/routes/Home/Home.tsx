@@ -73,7 +73,7 @@ const Home = () => {
             if (matchingContainersList.length > 0) {
               return (
                 <div key={snackType.codename}>
-                  <h2>{snackType.name}</h2>
+                  <h3>{snackType.name}</h3>
                   <nav className="container-list p-4 mb-5">
                     {matchingContainersList}
                   </nav>
