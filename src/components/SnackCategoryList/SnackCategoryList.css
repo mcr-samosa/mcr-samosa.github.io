@@ -1,0 +1,17 @@
+.container-list {
+    transition: all 600ms;
+    overflow: hidden;
+}
+
+.container-list.closed {
+    height: 4.375rem !important;
+}
+
+.is-clickable{
+    cursor: pointer;
+}
+
+.snack-item:hover {
+    background-color: #f6f6f6;
+}
+
