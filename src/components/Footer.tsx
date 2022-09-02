@@ -1,4 +1,4 @@
-export const Footer = () => {
+const Footer = () => {
   return <footer>©2022 SAMOSA</footer>;
 };
 
