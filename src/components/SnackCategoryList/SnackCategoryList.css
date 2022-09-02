@@ -1,3 +1,9 @@
+.container-list h2 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+}
+
 .container-list {
     transition: all 600ms;
     overflow: hidden;
