@@ -21,7 +21,8 @@ const SearchBar = ({ data, placeholder, onSelect }: SearchProps) => {
         onSelect={onSelect}
         onChange={() => void 0}
         fuseConfigs={{
-          ignoreLocation: true,
+          distance: 100,
+          threshold: 0.5,
           shouldSort: true,
         }}
       />
