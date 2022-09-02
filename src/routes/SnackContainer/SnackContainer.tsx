@@ -115,22 +115,28 @@ const SnackContainer = () => {
           </Columns.Column>
           <Columns.Column className="is-vcentered">
             <div className="snack-description">
-              <Content
-                className={`${content?.productDescription ? "pb-4" : ""}`}
-                dangerouslySetInnerHTML={{
-                  __html: content?.productDescription ?? "",
-                }}
-              />
+              {content?.productDescription?.length && (
+                <Content
+                  dangerouslySetInnerHTML={{
+                    __html: content?.productDescription ?? "",
+                  }}
+                />
+              )}
               {content?.supermarketUrl && (
                 <p>
                   For more information such as the full product description,
                   allergies and dietry requirements see the supermarket listing
                   here: &nbsp;
-                  <a href={content?.supermarketUrl}>
+                  <a
+                    href={content?.supermarketUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     {content?.supermarketUrl ?? "loading..."}
                   </a>
                 </p>
               )}
+              y
             </div>
           </Columns.Column>
         </Columns>
