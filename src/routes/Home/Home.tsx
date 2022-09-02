@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LandingPageContent } from "../../models/landing-page-content";
 import {
@@ -8,11 +8,13 @@ import {
   getWeeklyProductsContent,
 } from "../../clients/kontent-client";
 import { ContainerListItem } from "../../models/container-list-item";
-import { Card, Container, Content } from "react-bulma-components";
+import { Container, Content } from "react-bulma-components";
 import "./Home.css";
 import { logos } from "../../utils/logos";
 import { WeeklyProductsContent } from "../../models/weekly-products-content";
 import { SnackTypeListItem } from "../../models/snack-type-list-item";
+import SnackCategoryList from "../../components/SnackCategoryList/SnackCategoryList";
+import SearchBar, { SearchItem } from "../../components/SearchBar";
 
 const randomLogoIdx = (previous?: number): number => {
   const newIdx = Math.floor(Math.random() * logos.length);
@@ -35,6 +37,8 @@ const Home = () => {
     getSnackTypes().then((snackTypesList) => setSnackTypeList(snackTypesList));
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <main>
       <section className="hero pt-3 pb-5 mb-4 is-flex is-align-items-center">
@@ -52,35 +56,28 @@ const Home = () => {
             __html: content?.bodyContent ?? "",
           }}
         />
+        <SearchBar
+          data={containerList
+            .filter((item) => item.snackTypeName != "Empty")
+            .map((item) => ({
+              key: item.containerId.toString(),
+              value: item.contentsText,
+            }))}
+          placeholder={"Search for snacks..."}
+          onSelect={({ item }: { item: SearchItem }) =>
+            navigate(`/container/${item.key}`)
+          }
+        />
+        <hr />
         {snackTypeList
           .filter((snackType) => snackType.codename != "empty")
-          .map((snackType) => {
-            const matchingContainersList = containerList
-              .filter((item) => item.snackTypeName == snackType.name)
-              .map((containerListItem) => (
-                <Link
-                  key={containerListItem.containerId}
-                  to={`/container/${containerListItem.containerId}`}
-                >
-                  <Card className="mb-2">
-                    <Card.Content>
-                      #{containerListItem.containerId} &mdash;{" "}
-                      {containerListItem.contentsText}
-                    </Card.Content>
-                  </Card>
-                </Link>
-              ));
-            if (matchingContainersList.length > 0) {
-              return (
-                <div key={snackType.codename}>
-                  <h3>{snackType.name}</h3>
-                  <nav className="container-list p-4 mb-5">
-                    {matchingContainersList}
-                  </nav>
-                </div>
-              );
-            }
-          })}
+          .map((snackType) => (
+            <SnackCategoryList
+              key={snackType.codename}
+              snackTypeName={snackType.name}
+              containerList={containerList}
+            />
+          ))}
         <hr />
         <div id="weekly-products">
           <Content>
