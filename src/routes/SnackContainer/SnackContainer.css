@@ -17,7 +17,20 @@
 
 .floating-qr {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 4rem;
+  right: 9.25rem;
   border: 1px solid #eeeeee;
+}
+
+.supermarket-link {
+  display: inline-block;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.formatted-column {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }

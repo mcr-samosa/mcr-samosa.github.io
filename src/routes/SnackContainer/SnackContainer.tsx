@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getContainerContent } from "../../clients/kontent-client";
 import { ContainerContent } from "../../models/container-content";
 import { Link, useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ import {
 import QRCodeStyling from "qr-code-styling";
 
 import samosaLogo from "../../assets/samosa1.png";
+import { richTextHasContent } from "../../utils/helpers";
 
 // Pride maybe?
 // gradient: {
@@ -41,6 +42,20 @@ const qrCode = new QRCodeStyling({
     type: "classy",
   },
 });
+
+interface MetadataItemProps {
+  background: string;
+  children: React.ReactNode;
+}
+
+const MetadataItem: React.FC<MetadataItemProps> = ({
+  background,
+  children,
+}) => (
+  <div className={`formatted-column has-background-${background}`}>
+    <div>{children}</div>
+  </div>
+);
 
 const SnackContainer = () => {
   const { containerId } = useParams();
@@ -88,7 +103,7 @@ const SnackContainer = () => {
               setCodeVisible(!codeVisible);
             }}
           >
-            Show QR code
+            {codeVisible ? "Hide" : "Show"} QR code
           </Button>
           {codeVisible && (
             <Card className="floating-qr" onClick={() => setCodeVisible(false)}>
@@ -115,7 +130,7 @@ const SnackContainer = () => {
           </Columns.Column>
           <Columns.Column className="is-vcentered">
             <div className="snack-description">
-              {content?.productDescription?.length && (
+              {richTextHasContent(content?.productDescription ?? "") && (
                 <Content
                   dangerouslySetInnerHTML={{
                     __html: content?.productDescription ?? "",
@@ -123,44 +138,47 @@ const SnackContainer = () => {
                 />
               )}
               {content?.supermarketUrl && (
-                <p>
-                  For more information such as the full product description,
-                  allergies and dietry requirements see the supermarket listing
-                  here: &nbsp;
-                  <a
-                    href={content?.supermarketUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {content?.supermarketUrl ?? "loading..."}
-                  </a>
-                </p>
+                <div>
+                  <p>
+                    For more information such as the full product description,
+                    allergies and dietry requirements see the supermarket
+                    listing here:
+                  </p>
+                  <div className="supermarket-link">
+                    <a
+                      href={content?.supermarketUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {content?.supermarketUrl ?? "loading..."}
+                    </a>
+                  </div>
+                </div>
               )}
-              y
             </div>
           </Columns.Column>
         </Columns>
       </Container>
       <Columns className="mb-2">
         <Columns.Column>
-          <div className="formatted-column has-background-primary	">
+          <MetadataItem background={"primary"}>
             <b>Category:</b> {content?.snackTypeName}
-          </div>
+          </MetadataItem>
         </Columns.Column>
         <Columns.Column>
-          <div className="formatted-column has-background-primary">
+          <MetadataItem background={"primary"}>
             <b>Location:</b> {content?.containerLocation}
-          </div>
+          </MetadataItem>
         </Columns.Column>
         <Columns.Column>
-          <div className="formatted-column has-background-warning">
+          <MetadataItem background={"warning"}>
             <b>Out of stock? </b>
             <a
               href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock 😭`}
             >
               Let us know
             </a>
-          </div>
+          </MetadataItem>
         </Columns.Column>
       </Columns>
     </main>
