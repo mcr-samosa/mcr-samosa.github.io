@@ -15,6 +15,10 @@
   padding: 1em;
 }
 
+.qr-button {
+  width: 8.6rem;
+}
+
 .floating-qr {
   position: absolute;
   top: 4rem;

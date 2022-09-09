@@ -98,7 +98,7 @@ const SnackContainer = () => {
             Edit Snack ↗
           </a>
           <Button
-            className="is-pulled-right"
+            className="qr-button is-pulled-right"
             onClick={() => {
               setCodeVisible(!codeVisible);
             }}
