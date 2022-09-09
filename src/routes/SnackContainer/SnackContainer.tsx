@@ -78,6 +78,10 @@ const SnackContainer = () => {
     }
   }, [codeVisible, qrCodeRef]);
 
+  const hasProductDescription = richTextHasContent(
+    content?.productDescription ?? ""
+  );
+
   return (
     <main>
       <Columns className="is-flex">
@@ -118,47 +122,70 @@ const SnackContainer = () => {
       </Heading>
       <hr className="mt-0 mb-4" />
       <Container>
-        <Columns>
-          <Columns.Column size={4}>
-            {content?.imageUrl && (
-              <img
-                src={content?.imageUrl}
-                alt={`Image of ${content?.contentsText}`}
-                className="snack-image"
-              />
-            )}
-          </Columns.Column>
-          <Columns.Column className="is-vcentered">
-            <div className="snack-description">
-              {richTextHasContent(content?.productDescription ?? "") && (
-                <Content
-                  dangerouslySetInnerHTML={{
-                    __html: content?.productDescription ?? "",
-                  }}
+        {content &&
+        !content.imageUrl?.length &&
+        !hasProductDescription &&
+        !content.supermarketUrl?.length ? (
+          <p className="has-text-centered mb-4">
+            We don&apos;t have a description for this item! Check it out
+            in-person at snack container #{content.containerId}
+          </p>
+        ) : (
+          <Columns>
+            <Columns.Column size={4}>
+              {content?.imageUrl && (
+                <img
+                  src={content?.imageUrl}
+                  alt={`Image of ${content?.contentsText}`}
+                  className="snack-image"
                 />
               )}
-              {content?.supermarketUrl && (
-                <div>
-                  <p>
-                    For more information such as the full product description,
-                    allergies and dietry requirements see the supermarket
-                    listing here:
-                  </p>
-                  <div className="supermarket-link">
-                    <a
-                      href={content?.supermarketUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {content?.supermarketUrl ?? "loading..."}
-                    </a>
+            </Columns.Column>
+            <Columns.Column className="is-vcentered">
+              <div className="snack-description">
+                {hasProductDescription && (
+                  <Content
+                    dangerouslySetInnerHTML={{
+                      __html: content?.productDescription ?? "",
+                    }}
+                  />
+                )}
+                {content?.supermarketUrl && (
+                  <div>
+                    <p>
+                      For more information such as the full product description,
+                      allergies and dietry requirements see the supermarket
+                      listing here:
+                    </p>
+                    <div className="supermarket-link">
+                      <a
+                        href={content?.supermarketUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {content?.supermarketUrl ?? "loading..."}
+                      </a>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          </Columns.Column>
-        </Columns>
+                )}
+                {!content?.supermarketUrl && !hasProductDescription && (
+                  <div>
+                    {content ? (
+                      <p>
+                        We don&apos;t have a description for this item! Check it
+                        out in-person at snack container #{content.containerId}
+                      </p>
+                    ) : (
+                      <p>Loading...</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </Columns.Column>
+          </Columns>
+        )}
       </Container>
+      <hr className="mt-0" />
       <Columns className="mb-2">
         <Columns.Column>
           <MetadataItem background={"primary"}>
