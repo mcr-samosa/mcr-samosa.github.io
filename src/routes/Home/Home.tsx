@@ -61,7 +61,7 @@ const Home = () => {
             .filter((item) => item.snackTypeName != "Empty")
             .map((item) => ({
               key: item.containerId.toString(),
-              value: item.contentsText,
+              value: `${item.containerId.toString()} - ${item.contentsText}`,
             }))}
           placeholder={"Search for snacks..."}
           onSelect={({ item }: { item: SearchItem }) =>
