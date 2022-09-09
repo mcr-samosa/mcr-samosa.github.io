@@ -3,7 +3,7 @@ import { Card } from "react-bulma-components";
 import { ContainerListItem } from "../../models/container-list-item";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import "./SnackCategoryList.css";
 
 interface SnackProps {
@@ -35,8 +35,8 @@ const SnackCategoryList = ({ snackTypeName, containerList }: SnackProps) => {
     <div>
       {matchingContainersList.length > 0 ? (
         <Card
-          className={`container-list mb-5${isVisible ? "" : " closed"}`}
-          style={{ height: `${matchingContainersList.length * 5 + 7.375}rem` }}
+          className={`container-list mb-3${isVisible ? "" : " closed"}`}
+          style={{ height: `${matchingContainersList.length * 4 + 4.55}rem` }}
         >
           <Card.Header
             className="p-1 is-clickable"
@@ -48,7 +48,7 @@ const SnackCategoryList = ({ snackTypeName, containerList }: SnackProps) => {
               <h2>{snackTypeName}</h2>
             </Card.Header.Title>
             <Card.Header.Icon>
-              <FontAwesomeIcon icon={isVisible ? faAngleUp : faAngleDown} />
+              <FontAwesomeIcon icon={faAngleDown} />
             </Card.Header.Icon>
           </Card.Header>
           <Card.Content>{matchingContainersList}</Card.Content>

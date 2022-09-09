@@ -37,6 +37,10 @@ footer {
   font-weight: 400;
 }
 
+.is-clickable{
+  cursor: pointer;
+}
+
 @media screen and (max-width: 639px) {
   .title {
     font-size: 3em;

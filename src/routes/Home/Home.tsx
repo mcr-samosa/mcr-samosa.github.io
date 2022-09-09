@@ -14,7 +14,7 @@ import { logos } from "../../utils/logos";
 import { WeeklyProductsContent } from "../../models/weekly-products-content";
 import { SnackTypeListItem } from "../../models/snack-type-list-item";
 import SnackCategoryList from "../../components/SnackCategoryList/SnackCategoryList";
-import SearchBar, { SearchItem } from "../../components/SearchBar";
+import SearchBar, { SearchItem } from "../../components/SearchBar/SearchBar";
 
 const randomLogoIdx = (previous?: number): number => {
   const newIdx = Math.floor(Math.random() * logos.length);
@@ -61,7 +61,9 @@ const Home = () => {
             .filter((item) => item.snackTypeName != "Empty")
             .map((item) => ({
               key: item.containerId.toString(),
-              value: `${item.containerId.toString()} - ${item.contentsText}`,
+              value: `${
+                item.contentsText
+              } (#${item.containerId.toString()}) — ${item.snackTypeName}`,
             }))}
           placeholder={"Search for snacks..."}
           onSelect={({ item }: { item: SearchItem }) =>

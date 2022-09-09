@@ -1,23 +1,51 @@
-.container-list h2 {
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin-bottom: 2px;
-}
-
 .container-list {
-    transition: all 600ms;
+    background: #eeeeee;
+    border-radius: 0.3rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    transition: all 600ms ease;
     overflow: hidden;
 }
 
 .container-list.closed {
-    height: 4.375rem !important;
+    height: 3.35rem !important;
 }
 
-.is-clickable{
-    cursor: pointer;
+.container-list .card-header-title {
+    line-height: 1.2rem;
+    padding: 0.75rem 0.85rem;
+}
+
+.container-list .card-header-title h2 {
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+}
+
+.container-list .card-header.is-clickable:hover {
+    opacity: 0.75;
+}
+
+.container-list .card-header-icon > .svg-inline--fa {
+    transform: rotate(180deg);
+    transition: transform 600ms ease;
+}
+
+.container-list.closed .card-header-icon > .svg-inline--fa {
+    transform: rotate(0deg);
+}
+
+.container-list .card-content {
+    padding: 0.8rem 0.6rem 0 0.6rem;
+}
+
+.snack-item .card-content {
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    height: 3.5rem;
 }
 
 .snack-item:hover {
     background-color: #f6f6f6;
 }
-

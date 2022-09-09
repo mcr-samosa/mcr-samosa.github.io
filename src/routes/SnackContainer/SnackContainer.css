@@ -2,6 +2,11 @@
   padding: 1em;
 }
 
+.snack-header {
+  padding: 0 0.75rem;
+  font-size: 4rem;
+}
+
 .snack-image {
   size: 0.5em;
 }

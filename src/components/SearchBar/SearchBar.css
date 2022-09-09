@@ -3,9 +3,10 @@
     margin-right: 0.5rem;
 }
 
-.react-search-box-dropdown {
+.search-container .react-search-box-dropdown {
     position: absolute;
     width: 100%;
     top: 100%;
+    box-shadow: rgb(0 0 0 / 10%) 0 0 0 0, rgb(0 0 0 / 20%) 0 8px 11px;
     z-index: 1;
 }
