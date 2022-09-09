@@ -11,6 +11,7 @@ body {
   flex-grow: 1;
   min-height: 100%;
   background-color: #ffffff;
+  max-width: 100%;
 }
 
 .hero,
@@ -35,11 +36,6 @@ footer {
   font-size: 5em;
   font-family: "Carter One", cursive;
   font-weight: 400;
-}
-
-.container-list {
-  background: #e5e3e1;
-  border-radius: 0.5rem;
 }
 
 @media (max-width: 640px) {
