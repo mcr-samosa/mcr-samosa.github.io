@@ -154,7 +154,7 @@ const SnackContainer = () => {
                   <div>
                     <p>
                       For more information such as the full product description,
-                      allergies and dietry requirements see the supermarket
+                      allergies and dietary requirements see the full supplier
                       listing here:
                     </p>
                     <div className="supermarket-link">
@@ -200,11 +200,26 @@ const SnackContainer = () => {
         <Columns.Column>
           <MetadataItem background={"warning"}>
             <b>Out of stock? </b>
-            <a
-              href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock 😭`}
-            >
-              Let us know
-            </a>
+            {content?.outOfStockAlert ? (
+              <p>
+                {" "}
+                First check the cupboards under the kitchen island to see if
+                there&lsquo;s backup stock. If you can&lsquo;t find any,
+                <a
+                  href={`mailto:Group-ManchesterSnacks@softwire.com?subject=Out of stock notification&body=${content?.contentsText} is out of stock 😭`}
+                >
+                  <b>&nbsp;let us know.</b>
+                </a>{" "}
+              </p>
+            ) : (
+              <p>
+                First check the cupboards under the kitchen island to see if
+                there&lsquo;s backup stock. If not, we get this product on a
+                recurring basis (usually near the start of a month) and
+                don&lsquo;t order replacements in the meantime, so no need to
+                let us know.
+              </p>
+            )}
           </MetadataItem>
         </Columns.Column>
       </Columns>

@@ -8,5 +8,6 @@ export type ContainerContent = {
   imageUrl: string | null;
   productDescription: string;
   supermarketUrl: string | null;
+  outOfStockAlert: number | null;
   kontentEditUrl: string;
 };

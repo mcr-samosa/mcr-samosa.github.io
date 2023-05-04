@@ -31,6 +31,7 @@ type Container = IContentItem<{
   image_url: Elements.TextElement;
   production_description: Elements.RichTextElement;
   supermarket_url: Elements.TextElement;
+  out_of_stock_alert: Elements.NumberElement;
 }>;
 
 const deliveryClient = createDeliveryClient({
@@ -155,6 +156,7 @@ export const getContainerContent = async (
     imageUrl: containerItem.elements.image_url?.value,
     productDescription: containerItem.elements.production_description.value,
     supermarketUrl: containerItem.elements.supermarket_url?.value,
+    outOfStockAlert: containerItem.elements.out_of_stock_alert?.value,
     kontentEditUrl,
   };
 };
